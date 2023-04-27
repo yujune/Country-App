@@ -1,24 +1,31 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:country/models/flag.dart';
+
 class Country {
   Name? name;
+  Flag? flags;
 
   Country({
     this.name,
+    this.flags,
   });
 
   Country copyWith({
     Name? name,
+    Flag? flags,
   }) {
     return Country(
       name: name ?? this.name,
+      flags: flags ?? this.flags,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name?.toMap(),
+      'flags': flags?.toMap(),
     };
   }
 
@@ -26,6 +33,9 @@ class Country {
     return Country(
       name: map['name'] != null
           ? Name.fromMap(map['name'] as Map<String, dynamic>)
+          : null,
+      flags: map['flags'] != null
+          ? Flag.fromMap(map['flags'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -36,17 +46,17 @@ class Country {
       Country.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Country(name: $name)';
+  String toString() => 'Country(name: $name, flags: $flags)';
 
   @override
   bool operator ==(covariant Country other) {
     if (identical(this, other)) return true;
 
-    return other.name == name;
+    return other.name == name && other.flags == flags;
   }
 
   @override
-  int get hashCode => name.hashCode;
+  int get hashCode => name.hashCode ^ flags.hashCode;
 }
 
 class Name {
