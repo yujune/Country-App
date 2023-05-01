@@ -7,14 +7,17 @@ import 'package:country/models/flag.dart';
 
 class Country {
   Name? name;
-  Flag? flags;
+  ImageUrlModel? flags;
+  ImageUrlModel? coatOfArms;
   List<String>? capital;
   String? region;
   String? subregion;
   num? population;
+
   Country({
     this.name,
     this.flags,
+    this.coatOfArms,
     this.capital,
     this.region,
     this.subregion,
@@ -23,7 +26,8 @@ class Country {
 
   Country copyWith({
     Name? name,
-    Flag? flags,
+    ImageUrlModel? flags,
+    ImageUrlModel? coatOfArms,
     List<String>? capital,
     String? region,
     String? subregion,
@@ -32,6 +36,7 @@ class Country {
     return Country(
       name: name ?? this.name,
       flags: flags ?? this.flags,
+      coatOfArms: coatOfArms ?? this.coatOfArms,
       capital: capital ?? this.capital,
       region: region ?? this.region,
       subregion: subregion ?? this.subregion,
@@ -43,6 +48,7 @@ class Country {
     return <String, dynamic>{
       'name': name?.toMap(),
       'flags': flags?.toMap(),
+      'coatOfArms': coatOfArms?.toMap(),
       'capital': capital,
       'region': region,
       'subregion': subregion,
@@ -56,11 +62,13 @@ class Country {
           ? Name.fromMap(map['name'] as Map<String, dynamic>)
           : null,
       flags: map['flags'] != null
-          ? Flag.fromMap(map['flags'] as Map<String, dynamic>)
+          ? ImageUrlModel.fromMap(map['flags'] as Map<String, dynamic>)
           : null,
-      capital: map['capital'] != null
-          ? List<String>.from(map['capital'] as List<String>)
+      coatOfArms: map['coatOfArms'] != null
+          ? ImageUrlModel.fromMap(map['coatOfArms'] as Map<String, dynamic>)
           : null,
+      capital:
+          map['capital'] != null ? List<String>.from((map['capital'])) : null,
       region: map['region'] != null ? map['region'] as String : null,
       subregion: map['subregion'] != null ? map['subregion'] as String : null,
       population: map['population'] != null ? map['population'] as num : null,
@@ -74,7 +82,7 @@ class Country {
 
   @override
   String toString() {
-    return 'Country(name: $name, flags: $flags, capital: $capital, region: $region, subregion: $subregion, population: $population)';
+    return 'Country(name: $name, flags: $flags, coatOfArms: $coatOfArms, capital: $capital, region: $region, subregion: $subregion, population: $population)';
   }
 
   @override
@@ -83,6 +91,7 @@ class Country {
 
     return other.name == name &&
         other.flags == flags &&
+        other.coatOfArms == coatOfArms &&
         listEquals(other.capital, capital) &&
         other.region == region &&
         other.subregion == subregion &&
@@ -93,6 +102,7 @@ class Country {
   int get hashCode {
     return name.hashCode ^
         flags.hashCode ^
+        coatOfArms.hashCode ^
         capital.hashCode ^
         region.hashCode ^
         subregion.hashCode ^

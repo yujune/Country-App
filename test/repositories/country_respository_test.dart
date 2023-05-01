@@ -49,12 +49,14 @@ void main() {
     test('getCountry should return country', () async {
       final mockResponse = Response(
         requestOptions: RequestOptions(),
-        data: {
-          "name": {
-            "common": "Barbados",
-            "official": "Barbados",
-          }
-        },
+        data: [
+          {
+            "name": {
+              "common": "Barbados",
+              "official": "Barbados",
+            }
+          },
+        ],
       );
 
       when(mockApiService.getCountry(name: 'Barbados'))
@@ -64,9 +66,11 @@ void main() {
 
       expect(
         response,
-        Country(
-          name: Name(common: 'Barbados', official: 'Barbados'),
-        ),
+        [
+          Country(
+            name: Name(common: 'Barbados', official: 'Barbados'),
+          )
+        ],
       );
     });
   });

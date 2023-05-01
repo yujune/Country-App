@@ -24,11 +24,13 @@ class CountryRepositoryImpl implements CountryRepository {
   }
 
   @override
-  Future<Country> getCountry({required String name}) async {
+  Future<List<Country>> getCountry({required String name}) async {
     try {
       final response = await _apiService.getCountry(name: name);
-      final country = Country.fromMap(response.data);
-      return country;
+      final data = response.data as List<dynamic>;
+      final countryList =
+          data.map((country) => Country.fromMap(country)).toList();
+      return countryList;
     } on DioError {
       rethrow;
     }

@@ -14,4 +14,10 @@ class CountryViewModel extends ChangeNotifier {
     notifyListeners();
     return response;
   }
+
+  Future<List<Country>> getCountry({required String name}) async {
+    final response = await _countryRepo.getCountry(name: name);
+    notifyListeners();
+    return response;
+  }
 }

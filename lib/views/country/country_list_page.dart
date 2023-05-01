@@ -4,6 +4,7 @@ import 'package:country/widgets/country/country_list_item.dart';
 import 'package:country/widgets/loading/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class CountryListPage extends StatefulWidget {
   const CountryListPage({super.key});
@@ -23,6 +24,10 @@ class _CountryListPageState extends State<CountryListPage> {
 
   Future<void> onRefresh() async {
     await _viewModel.getCountryList();
+  }
+
+  void onCountryTap(String name) {
+    context.go('/details/$name');
   }
 
   @override
@@ -46,8 +51,10 @@ class _CountryListPageState extends State<CountryListPage> {
         child: ListView.builder(
           itemCount: _countryList?.length ?? 0,
           itemBuilder: (context, index) => CountryListItem(
-              name: _countryList?[index].name?.common ?? '',
-              flagImageUrl: _countryList?[index].flags?.png ?? ''),
+            name: _countryList?[index].name?.common ?? '',
+            flagImageUrl: _countryList?[index].flags?.png ?? '',
+            onTap: onCountryTap,
+          ),
         ),
       ),
     );
