@@ -12,4 +12,9 @@ class ApiServiceImpl implements ApiService {
   Future<Response<T>> getCountryList<T>() {
     return _dio.get('/all');
   }
+
+  @override
+  Future<Response<T>> getCountry<T>({required String name}) {
+    return _dio.get('/name/$name');
+  }
 }

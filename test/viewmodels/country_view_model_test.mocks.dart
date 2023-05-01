@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:country/models/country.dart' as _i4;
-import 'package:country/repositories/country_repository.dart' as _i2;
+import 'package:country/models/country.dart' as _i2;
+import 'package:country/repositories/country_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -20,21 +20,48 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeCountry_0 extends _i1.SmartFake implements _i2.Country {
+  _FakeCountry_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [CountryRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCountryRepositoryImpl extends _i1.Mock
-    implements _i2.CountryRepositoryImpl {
+    implements _i3.CountryRepositoryImpl {
   MockCountryRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i4.Country>> getCountryList() => (super.noSuchMethod(
+  _i4.Future<List<_i2.Country>> getCountryList() => (super.noSuchMethod(
         Invocation.method(
           #getCountryList,
           [],
         ),
-        returnValue: _i3.Future<List<_i4.Country>>.value(<_i4.Country>[]),
-      ) as _i3.Future<List<_i4.Country>>);
+        returnValue: _i4.Future<List<_i2.Country>>.value(<_i2.Country>[]),
+      ) as _i4.Future<List<_i2.Country>>);
+  @override
+  _i4.Future<_i2.Country> getCountry({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCountry,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i4.Future<_i2.Country>.value(_FakeCountry_0(
+          this,
+          Invocation.method(
+            #getCountry,
+            [],
+            {#name: name},
+          ),
+        )),
+      ) as _i4.Future<_i2.Country>);
 }

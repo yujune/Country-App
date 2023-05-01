@@ -45,5 +45,29 @@ void main() {
         ],
       );
     });
+
+    test('getCountry should return country', () async {
+      final mockResponse = Response(
+        requestOptions: RequestOptions(),
+        data: {
+          "name": {
+            "common": "Barbados",
+            "official": "Barbados",
+          }
+        },
+      );
+
+      when(mockApiService.getCountry(name: 'Barbados'))
+          .thenAnswer((realInvocation) => Future.value(mockResponse));
+
+      final response = await countryRepo.getCountry(name: 'Barbados');
+
+      expect(
+        response,
+        Country(
+          name: Name(common: 'Barbados', official: 'Barbados'),
+        ),
+      );
+    });
   });
 }

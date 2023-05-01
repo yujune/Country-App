@@ -52,4 +52,21 @@ class MockApiServiceImpl extends _i1.Mock implements _i3.ApiServiceImpl {
           ),
         )),
       ) as _i4.Future<_i2.Response<T>>);
+  @override
+  _i4.Future<_i2.Response<T>> getCountry<T>({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCountry,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i4.Future<_i2.Response<T>>.value(_FakeResponse_0<T>(
+          this,
+          Invocation.method(
+            #getCountry,
+            [],
+            {#name: name},
+          ),
+        )),
+      ) as _i4.Future<_i2.Response<T>>);
 }
