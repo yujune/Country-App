@@ -57,8 +57,6 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) return const LoadingIndicator();
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -68,61 +66,65 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
           onPressed: context.pop,
         ),
       ),
-      body: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Column(
-                children: [
-                  if (_country?.coatOfArms?.png?.isNotEmpty ?? false)
-                    Text(
-                      'Coat of arms',
-                      style: context.theme.textTheme.displayMedium,
-                    ),
-                  if (_country?.coatOfArms?.png?.isNotEmpty ?? false)
-                    SizedBox(
-                      height: 150,
-                      child: Padding(
+      body: _isLoading
+          ? const LoadingIndicator()
+          : RefreshIndicator(
+              onRefresh: onRefresh,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Column(
+                    children: [
+                      if (_country?.coatOfArms?.png?.isNotEmpty ?? false)
+                        Text(
+                          'Coat of arms',
+                          style: context.theme.textTheme.displayMedium,
+                        ),
+                      if (_country?.coatOfArms?.png?.isNotEmpty ?? false)
+                        SizedBox(
+                          height: 150,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child:
+                                Image.network(_country?.coatOfArms?.png ?? ''),
+                          ),
+                        ),
+                      ShadowContainer(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.all(0),
+                          child: Image.network(_country?.flags?.png ?? '')),
+                      ShadowContainer(
+                        margin: const EdgeInsets.symmetric(vertical: 15),
                         padding: const EdgeInsets.all(10),
-                        child: Image.network(_country?.coatOfArms?.png ?? ''),
-                      ),
-                    ),
-                  ShadowContainer(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      padding: const EdgeInsets.all(0),
-                      child: Image.network(_country?.flags?.png ?? '')),
-                  ShadowContainer(
-                    margin: const EdgeInsets.symmetric(vertical: 15),
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: InfoItem(
-                            label: 'Name',
-                            value: _country?.name?.official ?? '-',
-                          ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: InfoItem(
+                                label: 'Name',
+                                value: _country?.name?.official ?? '-',
+                              ),
+                            ),
+                            Expanded(
+                              child: InfoItem(
+                                label: 'Capital',
+                                value: _country?.capital?[0] ?? '-',
+                              ),
+                            ),
+                            Expanded(
+                              child: InfoItem(
+                                label: 'Population',
+                                value: _country?.population.toString() ?? '-',
+                              ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: InfoItem(
-                            label: 'Capital',
-                            value: _country?.capital?[0] ?? '-',
-                          ),
-                        ),
-                        Expanded(
-                          child: InfoItem(
-                            label: 'Population',
-                            value: _country?.population.toString() ?? '-',
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )),
+                      )
+                    ],
+                  ),
+                ),
+              )),
     );
   }
 }

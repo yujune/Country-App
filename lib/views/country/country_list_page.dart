@@ -80,8 +80,8 @@ class _CountryListPageState extends State<CountryListPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) return const LoadingIndicator();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           'Country',
@@ -91,35 +91,38 @@ class _CountryListPageState extends State<CountryListPage> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: Column(
-            children: [
-              SearchBar(
-                margin: const EdgeInsets.all(10),
-                controller: searchEditingController,
-                onChanged: onSearchTextChanged,
-                onClearText: () {
-                  onSearchTextChanged('');
-                },
+      body: _isLoading
+          ? const LoadingIndicator()
+          : SafeArea(
+              child: RefreshIndicator(
+                onRefresh: onRefresh,
+                child: Column(
+                  children: [
+                    SearchBar(
+                      margin: const EdgeInsets.all(10),
+                      controller: searchEditingController,
+                      onChanged: onSearchTextChanged,
+                      onClearText: () {
+                        onSearchTextChanged('');
+                      },
+                    ),
+                    Expanded(
+                      child: _isFiltering
+                          ? const LoadingIndicator()
+                          : ListView.builder(
+                              itemCount: _countryList?.length ?? 0,
+                              itemBuilder: (context, index) => CountryListItem(
+                                name: _countryList?[index].name?.common ?? '',
+                                flagImageUrl:
+                                    _countryList?[index].flags?.png ?? '',
+                                onTap: onCountryTap,
+                              ),
+                            ),
+                    ),
+                  ],
+                ),
               ),
-              Expanded(
-                child: _isFiltering
-                    ? const LoadingIndicator()
-                    : ListView.builder(
-                        itemCount: _countryList?.length ?? 0,
-                        itemBuilder: (context, index) => CountryListItem(
-                          name: _countryList?[index].name?.common ?? '',
-                          flagImageUrl: _countryList?[index].flags?.png ?? '',
-                          onTap: onCountryTap,
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
