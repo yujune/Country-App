@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:country/models/country.dart';
+import 'package:country/utils/extensions.dart';
 import 'package:country/viewmodels/country_view_model.dart';
 import 'package:country/widgets/common/search_bar.dart';
 import 'package:country/widgets/country/country_list_item.dart';
@@ -81,6 +82,15 @@ class _CountryListPageState extends State<CountryListPage> {
   Widget build(BuildContext context) {
     if (_isLoading) return const LoadingIndicator();
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Country',
+          style: context.theme.textTheme.bodyLarge?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: onRefresh,
